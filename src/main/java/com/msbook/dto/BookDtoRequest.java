@@ -4,13 +4,15 @@ import com.msbook.model.Book;
 import com.msbook.model.Category;
 import com.msbook.repository.BookRepository;
 import com.msbook.repository.CategoryRepository;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record BookDtoRequest(String title, String synopsis, String isbn, String author, String image, Set<Long> categoriesId) {
+public record BookDtoRequest(@NotBlank String title, @NotBlank String synopsis, @NotBlank String isbn, @NotBlank String author, @NotBlank String image, @NotNull Set<Long> categoriesId) {
 
     public Book bookDtoToBook(CategoryRepository categoryRepository) {
         Set<Category> collect = categoriesId.stream().map((x) -> {

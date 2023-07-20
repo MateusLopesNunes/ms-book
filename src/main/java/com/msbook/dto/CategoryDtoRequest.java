@@ -1,4 +1,7 @@
 package com.msbook.dto;
 
-public record CategoryDtoRequest(String name) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record CategoryDtoRequest(@NotBlank String name) {
 }
