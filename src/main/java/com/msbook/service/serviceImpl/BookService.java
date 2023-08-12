@@ -30,9 +30,9 @@ public class BookService {
     }
 
 //    # pensar melhor sobre a posibilidade de buscar por 2 ou mais categorias
-//    public Iterable<Book> getByCategoryName(String name) {
-//        return bookRepository.findByTitle(name);
-//    }
+    public Iterable<Book> getPerCategoryName() {
+        return bookRepository.findBookPerCategory();
+    }
 
     public Book getById(Long id) {
         return bookRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Book not Found"));
