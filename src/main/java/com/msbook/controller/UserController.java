@@ -3,6 +3,7 @@ package com.msbook.controller;
 import com.msbook.dto.UserDtoRequest;
 import com.msbook.model.User;
 import com.msbook.service.serviceImpl.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,12 +29,13 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
-    public void create(@RequestBody UserDtoRequest userRequest) {
+    public void create(@RequestBody @Valid UserDtoRequest userRequest) {
         userService.create(userRequest);
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody UserDtoRequest userRequest, @PathVariable Long id) {
+    @Transactional
+    public void update(@RequestBody @Valid UserDtoRequest userRequest, @PathVariable Long id) {
         userService.update(userRequest, id);
     }
 

@@ -3,12 +3,14 @@ package com.msbook.dto;
 import com.msbook.model.Book;
 import com.msbook.model.User;
 import com.msbook.repository.CategoryRepository;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record UserDtoRequest(String name, String email, String password, String perfilImage, LocalDate birthDate) {
+public record UserDtoRequest(@NotBlank String username, @NotBlank String email, @NotBlank String password, String perfilImage, @NotNull LocalDate birthDate) {
 
     public User bookDtoToBook() {
-        return new User(name, email, password, perfilImage, birthDate);
+        return new User(username, email, password, perfilImage, birthDate);
     }
 }

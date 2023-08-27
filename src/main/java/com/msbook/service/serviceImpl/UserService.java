@@ -29,6 +29,12 @@ public class UserService {
     }
 
     public void create(UserDtoRequest userDto) {
+        Optional<User> byEmail = userRepository.findByEmail(userDto.email());
+
+        if (byEmail.isPresent()) {
+            throw new ObjectNotFoundException("Este email já existe no sistema");
+        }
+
         User user = userDto.bookDtoToBook();
         userRepository.save(user);
     }
@@ -37,11 +43,11 @@ public class UserService {
         User user = getById(id);
 
         Optional<User> userByEmail = userRepository.findByEmail(userDtoRequest.email());
-        if (userByEmail.isPresent() && !userByEmail.get().getId().equals(id)) {
+        if (userByEmail.isPresent() && !userByEmail.get().getId().equals(user.getId())) {
             throw new ObjectNotFoundException("Este email já existe");
         }
 
-        user.setName(userDtoRequest.name());
+        user.setUsername(userDtoRequest.username());
         user.setEmail(userDtoRequest.email());
         user.setPassword(userDtoRequest.password());
         user.setPerfilImage(userDtoRequest.perfilImage());
