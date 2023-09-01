@@ -1,6 +1,7 @@
 package com.msbook.controller;
 
 import com.msbook.dto.UserDtoRequest;
+import com.msbook.dto.UserDtoResponse;
 import com.msbook.model.User;
 import com.msbook.service.serviceImpl.UserService;
 import jakarta.validation.Valid;
@@ -17,7 +18,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public Iterable<User> getAll() {
+    public Iterable<UserDtoResponse> getAll() {
         return userService.getAll();
     }
 
@@ -42,6 +43,12 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         userService.deleteById(id);
+    }
+
+    @GetMapping("/resetPassword/{email}")
+    @Transactional
+    public void forgotMyPassword(@PathVariable String email) {
+        userService.forgotMyPassword(email);
     }
 
 }

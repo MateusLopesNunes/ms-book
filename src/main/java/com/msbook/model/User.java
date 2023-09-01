@@ -36,6 +36,14 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    public User(String username, String email, String perfilImage, LocalDate birthDate) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.perfilImage = perfilImage;
+        this.birthDate = birthDate;
+    }
+
     public Long getId() {
         return id;
     }
