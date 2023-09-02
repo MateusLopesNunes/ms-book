@@ -1,5 +1,6 @@
 package com.msbook.controller;
 
+import com.msbook.dto.ForgotPasswordRequest;
 import com.msbook.dto.UserDtoRequest;
 import com.msbook.dto.UserDtoResponse;
 import com.msbook.model.User;
@@ -7,6 +8,7 @@ import com.msbook.service.serviceImpl.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,10 +47,10 @@ public class UserController {
         userService.deleteById(id);
     }
 
-    @GetMapping("/resetPassword/{email}")
+    @PostMapping("/resetPassword")
     @Transactional
-    public void forgotMyPassword(@PathVariable String email) {
-        userService.forgotMyPassword(email);
+    public void forgotMyPassword(@RequestBody @Valid ForgotPasswordRequest obj) {
+        userService.forgotMyPassword(obj);
     }
 
 }

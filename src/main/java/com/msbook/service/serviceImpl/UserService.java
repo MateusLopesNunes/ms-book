@@ -2,6 +2,7 @@ package com.msbook.service.serviceImpl;
 
 import com.msbook.dto.UserDtoRequest;
 import com.msbook.dto.UserDtoResponse;
+import com.msbook.dto.ForgotPasswordRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.User;
 import com.msbook.repository.UserRepository;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserService {
@@ -69,18 +69,21 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void forgotMyPassword(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new ObjectNotFoundException("Email not Found"));
+    public void forgotMyPassword(ForgotPasswordRequest obj) {
+        User user = userRepository.findByEmail(obj.email()).orElseThrow(() -> new ObjectNotFoundException("Email not Found"));
+        if (!user.getBirthDate().equals(obj.birthDate())) {
+            throw new ObjectNotFoundException("User not Found");
+        }
+
         String token = PasswordUtils.generateRandomPassword(6);
+        String message = "<span style=font-size:20px>Hello " + user.getUsername() + "!</span><br/><br/>"
+                + "  Recebemos sua solicitação para alterar a sua senha de usuário no sistema.<br/>" +
+                "    Sua nova senha é: <span style=font-weight: bold; color: #FF0000>" + token + "</span><br/>" +
+                "    Para sua segurança, por favor altere sua senha na primeira vez que acessar o sistema. <br/>" +
+                "    Atenciosamente,<br/>" +
+                "    Equipe de Desenvolvimento.";
 
-        String message = "<span style=\"font-size:20px\">Hello " + user.getUsername() + "!</span><br/><br/>"
-                + "  \"Recebemos sua solicitação para alterar a senha do Diretório de Contatos do sistema.<br/>\"\n" +
-                "    \"Sua nova senha é: <span style=\"font-weight: bold; color: #FF0000\">" + token + "</span><br/>\"\n" +
-                "    \"Para sua segurança, por favor altere sua senha na primeira vez que acessar o sistema. <br/>\"\n" +
-                "    \"Atenciosamente,<br/>\"\n" +
-                "    \"Equipe de Desenvolvimento.\".";
-
-        findEmail(message, email, "Reset password");
+        findEmail(message, obj.email(), "Reset password");
 
         user.setPassword(token);
         userRepository.save(user);
@@ -100,4 +103,6 @@ public class UserService {
             throw new RuntimeException(e);
         }
     }
+
+
 }
