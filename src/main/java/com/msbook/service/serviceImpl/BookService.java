@@ -61,4 +61,8 @@ public class BookService {
         getById(id);
         bookRepository.deleteById(id);
     }
+
+    public void uploadImage() {
+        //upload image to google cloud storage
+    }
 }
