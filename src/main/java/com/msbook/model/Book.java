@@ -18,7 +18,7 @@ public class Book {
     private LocalDateTime created_at = LocalDateTime.now();
     private LocalDateTime updated_at;
     private String isbn;
-    private Long total_book_rating;
+    private Long total_book_rating = 0L;
     private String author;
     private String image;
     private StatusBook status = StatusBook.PENDING;

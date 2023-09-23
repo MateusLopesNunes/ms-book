@@ -1,8 +1,6 @@
 package com.msbook.service.serviceImpl;
 
-import com.msbook.dto.UserDtoRequest;
-import com.msbook.dto.UserDtoResponse;
-import com.msbook.dto.ForgotPasswordRequest;
+import com.msbook.dto.*;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.User;
 import com.msbook.repository.UserRepository;
@@ -12,11 +10,16 @@ import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -26,6 +29,14 @@ public class UserService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private ImageService imageService;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+    private UserService() {
+    }
 
     public List<UserDtoResponse> getAll() {
         List<User> users = userRepository.findAll();
@@ -44,6 +55,8 @@ public class UserService {
         }
 
         User user = userDto.bookDtoToBook();
+        String passwordEncode = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(passwordEncode);
         userRepository.save(user);
     }
 
@@ -64,9 +77,12 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void deleteById(Long id) {
-        getById(id);
-        userRepository.deleteById(id);
+    public void deleteById(Long id, AuthDtoRequest authDtoRequest) {
+        User user = getById(id);
+        if (user != null && user.getEmail().equals(authDtoRequest.email()) &&
+                bCryptPasswordEncoder.matches(authDtoRequest.password(), user.getPassword())) {
+            userRepository.deleteById(id);
+        }
     }
 
     public void forgotMyPassword(ForgotPasswordRequest obj) {
@@ -76,7 +92,7 @@ public class UserService {
         }
 
         String token = PasswordUtils.generateRandomPassword(6);
-        String message = "<span style=font-size:20px>Hello " + user.getUsername() + "!</span><br/><br/>"
+        String message = "<span style=font-size:20px>Hello " + user.getName() + "!</span><br/><br/>"
                 + "  Recebemos sua solicitação para alterar a sua senha de usuário no sistema.<br/>" +
                 "    Sua nova senha é: <span style=font-weight: bold; color: #FF0000>" + token + "</span><br/>" +
                 "    Para sua segurança, por favor altere sua senha na primeira vez que acessar o sistema. <br/>" +
@@ -85,7 +101,7 @@ public class UserService {
 
         findEmail(message, obj.email(), "Reset password");
 
-        user.setPassword(token);
+        user.setPassword(bCryptPasswordEncoder.encode(token));
         userRepository.save(user);
     }
 
@@ -104,5 +120,18 @@ public class UserService {
         }
     }
 
+    public void changePassword(String password, Long id) {
+        User user = getById(id);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        userRepository.save(user);
+    }
 
+    public void uploadImageUser(MultipartFile file, Long id) throws IOException {
+//        imageService.init();
+        User user = getById(id);
+
+        String imageName = imageService.save(file);
+        user.setPerfilImage("http://localhost:8080/user/files/" + imageName);
+        userRepository.save(user);
+    }
 }

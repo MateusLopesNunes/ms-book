@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.hibernate.validator.constraints.UniqueElements;
+import org.antlr.v4.runtime.Token;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,6 +24,7 @@ public class User {
     private LocalDate birthDate;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
+    private String token;
 
     public User() {
     }
@@ -52,10 +53,6 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -68,8 +65,9 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        // TODO Auto-generated method stub
+        return this.email;
     }
 
     public void setPassword(String password) {
@@ -102,5 +100,17 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

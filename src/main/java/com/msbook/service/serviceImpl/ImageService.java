@@ -1,9 +1,9 @@
 package com.msbook.service.serviceImpl;
 
+import com.msbook.dto.exception.ObjectNotFoundException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ImageService2 {
+public class ImageService {
 
     private final Path root = Paths.get("src/main/resources/uploads");
 
@@ -29,7 +29,7 @@ public class ImageService2 {
         }
     }
 
-    public void save(MultipartFile file) {
+    public String save(MultipartFile file) {
         try {
             String originalFileName = file.getOriginalFilename();
             String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -39,16 +39,17 @@ public class ImageService2 {
                 throw new IllegalArgumentException("Extensão de arquivo inválida");
             }
 
-//            String fileName = UUID.randomUUID().toString() + extension;
-//            String filePath = root + File.separator + fileName;
+           String uniqueFileName = UUID.randomUUID().toString() + extension;
+           String filePath = root + File.separator + uniqueFileName;
+           Files.copy(file.getInputStream(), this.root.resolve(uniqueFileName));
 
-            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+            return uniqueFileName;
         } catch (Exception e) {
             if (e instanceof FileAlreadyExistsException) {
-                throw new RuntimeException("A file of that name already exists.");
+                throw new ObjectNotFoundException("A file of that name already exists.");
             }
 
-            throw new RuntimeException(e.getMessage());
+            throw new ObjectNotFoundException("A file of that name already exists.");
         }
     }
 
@@ -60,10 +61,10 @@ public class ImageService2 {
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new RuntimeException("Could not read the file!");
+                throw new ObjectNotFoundException("Esta imagem não existe");
             }
         } catch (MalformedURLException e) {
-            throw new RuntimeException("Error: " + e.getMessage());
+            throw new ObjectNotFoundException("Url não formatada corretamente");
         }
     }
 

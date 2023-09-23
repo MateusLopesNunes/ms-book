@@ -16,6 +16,6 @@ public record UserDtoResponse(String username, String email, String perfilImage,
 
     public static UserDtoResponse userToUserDto(User user) {
         return new UserDtoResponse(
-                user.getUsername(), user.getEmail(), user.getPerfilImage(), user.getBirthDate());
+                user.getName(), user.getEmail(), user.getPerfilImage(), user.getBirthDate());
     }
 }
