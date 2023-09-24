@@ -43,7 +43,12 @@ public class UserService {
         return UserDtoResponse.userToUserDtoList(users);
     }
 
-    public User getById(Long id) {
+    public UserDtoResponse getById(Long id) {
+        User user = getByIdIfExists(id);
+        return UserDtoResponse.userToUserDto(user);
+    }
+
+    private User getByIdIfExists(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found"));
     }
 
@@ -61,7 +66,7 @@ public class UserService {
     }
 
     public void update(UserDtoRequest userDtoRequest, Long id) {
-        User user = getById(id);
+        User user = getByIdIfExists(id);
 
         Optional<User> userByEmail = userRepository.findByEmail(userDtoRequest.email());
         if (userByEmail.isPresent() && !userByEmail.get().getId().equals(user.getId())) {
@@ -78,7 +83,7 @@ public class UserService {
     }
 
     public void deleteById(Long id, AuthDtoRequest authDtoRequest) {
-        User user = getById(id);
+        User user = getByIdIfExists(id);
         if (user != null && user.getEmail().equals(authDtoRequest.email()) &&
                 bCryptPasswordEncoder.matches(authDtoRequest.password(), user.getPassword())) {
             userRepository.deleteById(id);
@@ -121,14 +126,14 @@ public class UserService {
     }
 
     public void changePassword(String password, Long id) {
-        User user = getById(id);
+        User user = getByIdIfExists(id);
         user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(user);
     }
 
     public void uploadImageUser(MultipartFile file, Long id) throws IOException {
 //        imageService.init();
-        User user = getById(id);
+        User user = getByIdIfExists(id);
 
         String imageName = imageService.save(file);
         user.setPerfilImage("http://localhost:8080/user/files/" + imageName);

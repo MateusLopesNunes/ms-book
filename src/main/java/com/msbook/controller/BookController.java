@@ -46,10 +46,10 @@ public class BookController {
         return bookService.getByTitle(title);
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<Book> getById(@RequestParam String token, @PathVariable Long id) {
+    @GetMapping("/{bookId}")
+    ResponseEntity<Book> getById(@RequestParam String token, @RequestParam Long id, @PathVariable Long bookId) {
         if (authService.autheticated(token, id)) {
-            return ResponseEntity.ok(bookService.getById(id));
+            return ResponseEntity.ok(bookService.getById(bookId));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
@@ -75,7 +75,7 @@ public class BookController {
         bookService.getById(id);
     }
 
-    @GetMapping("/bookCover/{bookId}")
+    @PostMapping("/bookCover/{bookId}")
     public ResponseEntity uploadImageBook(@RequestParam String token, @RequestParam Long id, @PathVariable Long bookId, @RequestPart("file") MultipartFile file) throws IOException {
         if (authService.autheticated(token, id)) {
             bookService.uploadImageBook(file, bookId);

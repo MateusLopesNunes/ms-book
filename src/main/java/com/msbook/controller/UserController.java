@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable Long id) {
+    public UserDtoResponse getById(@PathVariable Long id) {
         return userService.getById(id);
     }
 
@@ -69,7 +69,7 @@ public class UserController {
         userService.forgotMyPassword(obj);
     }
 
-    @GetMapping("/perfil")
+    @PostMapping("/perfil")
     public ResponseEntity uploadImageUser(@RequestParam String token, @RequestParam Long id, @RequestPart("file") MultipartFile file) throws IOException {
         if (authService.autheticated(token, id)) {
             userService.uploadImageUser(file, id);
