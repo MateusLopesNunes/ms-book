@@ -1,5 +1,6 @@
 package com.msbook.repository;
 
+import com.msbook.dto.BookAuthorsDtoResponse;
 import com.msbook.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "select * from book join book_categories on book.id = book_categories.book_id where book_categories.categories_id = :categoryId and book_id = :bookId", nativeQuery = true)
     Iterable<Book> findBookPerCategory(@Param("categoryId") Long categoryId, @Param("bookId") Long bookId);
+
+    @Query(value = "select * from book", nativeQuery = true)
+    public List<Book> findAllAuthors();
+
 }
+

@@ -1,5 +1,6 @@
 package com.msbook.controller;
 
+import com.msbook.dto.BookAuthorsDtoResponse;
 import com.msbook.dto.BookDtoRequest;
 import com.msbook.model.Book;
 import com.msbook.service.serviceImpl.AuthService;
@@ -37,6 +38,14 @@ public class BookController {
     ResponseEntity<Page<Book>> getAll(@RequestParam String token, @RequestParam Long id, Pageable page) {
         if (authService.autheticated(token, id)) {
             return ResponseEntity.ok(bookService.getAll(page));
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @GetMapping("/authors")
+    ResponseEntity<List<BookAuthorsDtoResponse>> getAllAuthors(@RequestParam String token, @RequestParam Long id) {
+        if (authService.autheticated(token, id)) {
+            return ResponseEntity.ok(bookService.getAllAuthors());
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }

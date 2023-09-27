@@ -1,5 +1,6 @@
 package com.msbook.service.serviceImpl;
 
+import com.msbook.dto.BookAuthorsDtoResponse;
 import com.msbook.dto.BookDtoRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Book;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -29,6 +31,11 @@ public class BookService {
 
     public Page<Book> getAll(Pageable page) {
         return bookRepository.findAll(page);
+    }
+
+    public List<BookAuthorsDtoResponse> getAllAuthors() {
+        List<Book> allAuthors = bookRepository.findAllAuthors();
+        return BookAuthorsDtoResponse.bookToBookAuthorsDtoResponse(allAuthors);
     }
 
     public Iterable<Book> getByTitle(String title) {
