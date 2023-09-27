@@ -35,9 +35,9 @@ public class BookService {
         return bookRepository.findByTitle(title);
     }
 
-//    # pensar melhor sobre a posibilidade de buscar por 2 ou mais categorias
-    public Iterable<Book> getPerCategoryName() {
-        return bookRepository.findBookPerCategory();
+    public Iterable<Book> getPerCategoryName(Long bookId, Long categoryId) {
+        getById(bookId);
+        return bookRepository.findBookPerCategory(categoryId, bookId);
     }
 
     public Book getById(Long id) {

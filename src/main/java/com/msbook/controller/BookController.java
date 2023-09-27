@@ -54,9 +54,12 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/filter/category")
-    Iterable<Book> getPerCategoryName() {
-        return bookService.getPerCategoryName();
+    @GetMapping("/category")
+    ResponseEntity<Iterable<Book>> getPerCategoryName(@RequestParam Long bookId, @RequestParam Long categoryId, @RequestParam String token, @RequestParam Long id) {
+        if (authService.autheticated(token, id)) {
+            return ResponseEntity.ok(bookService.getPerCategoryName(bookId, categoryId));
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping
