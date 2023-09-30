@@ -19,6 +19,7 @@ com/msbook/dto/exception/ObjectNotFoundException.class
 com/msbook/dto/CategoryDtoRequest.class
 com/msbook/model/Book.class
 com/msbook/service/serviceImpl/ImageService.class
+com/msbook/service/serviceImpl/ReviewService.class
 com/msbook/model/Review.class
 com/msbook/controller/UserController.class
 com/msbook/service/serviceImpl/AuthService.class

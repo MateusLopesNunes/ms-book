@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Review {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Float rating;

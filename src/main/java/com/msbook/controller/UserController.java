@@ -69,13 +69,9 @@ public class UserController {
         userService.forgotMyPassword(obj);
     }
 
-    @PostMapping("/perfil")
-    public ResponseEntity uploadImageUser(@RequestParam String token, @RequestParam Long id, @RequestPart("file") MultipartFile file) throws IOException {
-        if (authService.autheticated(token, id)) {
-            userService.uploadImageUser(file, id);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    @PostMapping("/perfil/{id}")
+    public void uploadImageUser(@PathVariable Long id, @RequestPart("file") MultipartFile file) throws IOException {
+        userService.uploadImageUser(file, id);
     }
 
     @GetMapping("/files/{filename:.+}")

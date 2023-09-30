@@ -7,6 +7,7 @@
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/dto/exception/ObjectNotFoundException.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/controller/errorHandler/ErrorHandlerController.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/service/serviceImpl/UserService.java
+/home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/service/serviceImpl/ReviewService.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/model/Review.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/dto/CategoryDtoRequest.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/dto/UserDtoResponse.java

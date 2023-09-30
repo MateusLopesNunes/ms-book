@@ -43,7 +43,7 @@ public class BookController {
     }
 
     @GetMapping("/authors")
-    ResponseEntity<List<BookAuthorsDtoResponse>> getAllAuthors(@RequestParam String token, @RequestParam Long id) {
+    ResponseEntity<List<String>> getAllAuthors(@RequestParam String token, @RequestParam Long id) {
         if (authService.autheticated(token, id)) {
             return ResponseEntity.ok(bookService.getAllAuthors());
         }
@@ -63,10 +63,10 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/category")
-    ResponseEntity<Iterable<Book>> getPerCategoryName(@RequestParam Long bookId, @RequestParam Long categoryId, @RequestParam String token, @RequestParam Long id) {
+    @GetMapping("/category/{categoryId}")
+    ResponseEntity<Iterable<Book>> getPerCategoryName(@PathVariable Long categoryId, @RequestParam String token, @RequestParam Long id) {
         if (authService.autheticated(token, id)) {
-            return ResponseEntity.ok(bookService.getPerCategoryName(bookId, categoryId));
+            return ResponseEntity.ok(bookService.getPerCategoryName(categoryId));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }

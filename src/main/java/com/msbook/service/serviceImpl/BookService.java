@@ -1,10 +1,8 @@
 package com.msbook.service.serviceImpl;
 
-import com.msbook.dto.BookAuthorsDtoResponse;
 import com.msbook.dto.BookDtoRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Book;
-import com.msbook.model.User;
 import com.msbook.repository.BookRepository;
 import com.msbook.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,18 +31,16 @@ public class BookService {
         return bookRepository.findAll(page);
     }
 
-    public List<BookAuthorsDtoResponse> getAllAuthors() {
-        List<Book> allAuthors = bookRepository.findAllAuthors();
-        return BookAuthorsDtoResponse.bookToBookAuthorsDtoResponse(allAuthors);
+    public List<String> getAllAuthors() {
+        return bookRepository.findAllAuthors();
     }
 
     public Iterable<Book> getByTitle(String title) {
         return bookRepository.findByTitle(title);
     }
 
-    public Iterable<Book> getPerCategoryName(Long bookId, Long categoryId) {
-        getById(bookId);
-        return bookRepository.findBookPerCategory(categoryId, bookId);
+    public Iterable<Book> getPerCategoryName(Long categoryId) {
+        return bookRepository.findBookPerCategory(categoryId);
     }
 
     public Book getById(Long id) {
