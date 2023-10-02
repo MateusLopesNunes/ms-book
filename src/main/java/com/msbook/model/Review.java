@@ -24,6 +24,13 @@ public class Review {
     public Review() {
     }
 
+    public Review(Float rating, String review, Book book, User user) {
+        this.rating = rating;
+        this.review = review;
+        this.book = book;
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
