@@ -9,6 +9,7 @@
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/service/serviceImpl/UserService.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/service/serviceImpl/ReviewService.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/model/Review.java
+/home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/controller/ReviewController.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/dto/CategoryDtoRequest.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/dto/UserDtoResponse.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/repository/UserRepository.java
@@ -21,6 +22,7 @@
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/model/Book.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/dto/TokenResponse.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/config/HashConfig.java
+/home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/dto/ReviewDtoRequest.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/dto/UserDtoRequest.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/controller/UserController.java
 /home/mateuslopesnunes/Documentos/ms-book/src/main/java/com/msbook/controller/BookController.java

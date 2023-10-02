@@ -8,6 +8,7 @@ com/msbook/util/PasswordUtils.class
 com/msbook/model/User.class
 com/msbook/dto/UserDtoResponse.class
 com/msbook/model/Category.class
+com/msbook/controller/ReviewController.class
 com/msbook/repository/ReviewRepository.class
 com/msbook/dto/BookDtoRequest.class
 com/msbook/dto/UserDtoRequest.class
@@ -19,6 +20,7 @@ com/msbook/dto/exception/ObjectNotFoundException.class
 com/msbook/dto/CategoryDtoRequest.class
 com/msbook/model/Book.class
 com/msbook/service/serviceImpl/ImageService.class
+com/msbook/dto/ReviewDtoRequest.class
 com/msbook/service/serviceImpl/ReviewService.class
 com/msbook/model/Review.class
 com/msbook/controller/UserController.class
