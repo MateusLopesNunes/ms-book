@@ -84,7 +84,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     void deleteById(@PathVariable Long id) {
-        bookService.getById(id);
+        bookService.deleteById(id);
     }
 
     @PostMapping("/bookCover/{bookId}")

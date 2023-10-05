@@ -58,8 +58,6 @@ public class BookService {
         Book book = getById(id);
         book.setTitle(bookModel.getTitle());
         book.setAuthor(bookModel.getAuthor());
-        book.setIsbn(bookModel.getIsbn());
-        book.setImage(bookModel.getImage());
         book.setSynopsis(bookModel.getSynopsis());
         book.setUpdated_at(LocalDateTime.now());
         book.setCategories(bookModel.getCategories());
@@ -75,7 +73,7 @@ public class BookService {
         Book book = getById(id);
 
         String imageName = imageService.save(file);
-        book.setImage("http://localhost:8080/book/files/" + imageName);
+        book.setImage("/book/files/" + imageName);
         bookRepository.save(book);
     }
 

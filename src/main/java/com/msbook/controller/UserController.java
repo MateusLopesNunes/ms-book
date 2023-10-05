@@ -88,5 +88,14 @@ public class UserController {
     public TokenResponse login(@RequestBody @Valid AuthDtoRequest authDtoRequest) {
         return authService.login(authDtoRequest);
     }
+
+    @PostMapping("/logout/{id}")
+    public ResponseEntity logout(@PathVariable Long id, @RequestParam String token) {
+        if (authService.autheticated(token, id)) {
+            authService.resetToken(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
 }
 

@@ -39,6 +39,12 @@ public class AuthService {
         }
     }
 
+    public void resetToken(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Usuário não existe"));
+        user.setToken(null);
+        userRepository.save(user);
+    }
+
     private String updateToken(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Usuário não existe"));
         String token = UUID.randomUUID().toString();

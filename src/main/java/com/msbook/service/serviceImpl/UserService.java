@@ -136,7 +136,7 @@ public class UserService {
         User user = getByIdIfExists(id);
 
         String imageName = imageService.save(file);
-        user.setPerfilImage("http://localhost:8080/user/files/" + imageName);
+        user.setPerfilImage("/user/files/" + imageName);
         userRepository.save(user);
     }
 }

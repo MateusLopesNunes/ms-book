@@ -17,7 +17,6 @@ public class Book {
     private String synopsis;
     private LocalDateTime created_at = LocalDateTime.now();
     private LocalDateTime updated_at;
-    private String isbn;
     private Long total_book_rating = 0L;
     private String author;
     private String image;
@@ -29,12 +28,10 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String synopsis, String isbn, String author, String image, Set<Category> categories) {
+    public Book(String title, String synopsis, String author, Set<Category> categories) {
         this.title = title;
         this.synopsis = synopsis;
-        this.isbn = isbn;
         this.author = author;
-        this.image = image;
         categories.forEach(x -> {
             this.categories.add(x);
         });
@@ -78,14 +75,6 @@ public class Book {
 
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public Long getTotal_book_rating() {
