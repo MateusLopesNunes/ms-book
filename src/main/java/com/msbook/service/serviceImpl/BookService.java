@@ -77,5 +77,7 @@ public class BookService {
         bookRepository.save(book);
     }
 
-
+    public List<Book> getFilter() {
+        return bookRepository.findByFilters();
+    }
 }

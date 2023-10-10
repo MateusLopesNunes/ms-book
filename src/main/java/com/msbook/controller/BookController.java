@@ -105,4 +105,9 @@ public class BookController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+
+    @GetMapping("/filters")
+    List<Book> getAll() {
+        return bookService.getFilter();
+    }
 }

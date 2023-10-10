@@ -1,6 +1,7 @@
 package com.msbook.controller;
 
 import com.msbook.dto.ReviewDtoRequest;
+import com.msbook.dto.ReviewDtoResponse;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Review;
 import com.msbook.repository.UserRepository;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/review")
 @CrossOrigin(origins = "*")
@@ -28,17 +31,25 @@ public class ReviewController {
     AuthService authService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Review>> getAll(@RequestParam String token, @RequestParam Long id, Pageable page) {
+    public ResponseEntity<Page<ReviewDtoResponse>> getAll(@RequestParam String token, @RequestParam Long id, Pageable page) {
         if (authService.autheticated(token, id)) {
             return ResponseEntity.ok(reviewService.getAll(page));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Review> getById(@RequestParam String token, @PathVariable Long id) {
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<ReviewDtoResponse> getById(@RequestParam String token, @RequestParam Long id, @PathVariable Long reviewId) {
         if (authService.autheticated(token, id)) {
             return ResponseEntity.ok(reviewService.getById(id));
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @GetMapping("/book/{bookId}")
+    public ResponseEntity<List<Review>> getReviewPerBook(@RequestParam String token, @RequestParam Long id, @PathVariable Long bookId) {
+        if (authService.autheticated(token, id)) {
+            return ResponseEntity.ok(reviewService.getReviewPerBook(bookId));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
@@ -53,9 +64,9 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{reviewId}")
     @Transactional
-    public ResponseEntity update(@RequestBody @Valid ReviewDtoRequest reviewDto, @PathVariable Long id, @RequestParam String token) {
+    public ResponseEntity update(@PathVariable Long bookId, @RequestBody @Valid ReviewDtoRequest reviewDto, @RequestParam String token, @RequestParam Long id) {
         if (authService.autheticated(token, id)) {
             reviewService.update(reviewDto, id);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -63,8 +74,8 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteById(@PathVariable Long id, @RequestParam String token) {
+    @DeleteMapping("/{bookId}")
+    public ResponseEntity deleteById(@RequestParam String token, @RequestParam Long id, @PathVariable Long bookId) {
         if (authService.autheticated(token, id)) {
             reviewService.deleteById(id);
             return ResponseEntity.status(HttpStatus.CREATED).build();

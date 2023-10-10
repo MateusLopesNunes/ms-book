@@ -44,8 +44,8 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
-    public void create(@RequestBody @Valid UserDtoRequest userRequest) {
-        userService.create(userRequest);
+    public UserDtoResponse create(@RequestBody @Valid UserDtoRequest userRequest) {
+        return userService.create(userRequest);
     }
 
     @PutMapping("/{id}")

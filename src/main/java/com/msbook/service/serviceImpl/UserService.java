@@ -52,7 +52,7 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found"));
     }
 
-    public void create(UserDtoRequest userDto) {
+    public UserDtoResponse create(UserDtoRequest userDto) {
         Optional<User> byEmail = userRepository.findByEmail(userDto.email());
 
         if (byEmail.isPresent()) {
@@ -62,7 +62,9 @@ public class UserService {
         User user = userDto.bookDtoToBook();
         String passwordEncode = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(passwordEncode);
-        userRepository.save(user);
+        User save = userRepository.save(user);
+
+        return UserDtoResponse.userToUserDto(user);
     }
 
     public void update(UserDtoRequest userDtoRequest, Long id) {

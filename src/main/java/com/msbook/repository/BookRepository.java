@@ -19,5 +19,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "select distinct author from book", nativeQuery = true)
     public List<String> findAllAuthors();
 
+    @Query("SELECT DISTINCT b FROM Book b JOIN b.categories c")
+    public List<Book> findByFilters();
+
 }
 

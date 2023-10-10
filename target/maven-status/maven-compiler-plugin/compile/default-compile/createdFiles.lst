@@ -23,6 +23,7 @@ com\msbook\dto\UserDtoRequest.class
 com\msbook\dto\ReviewDtoRequest.class
 com\msbook\controller\ReviewController.class
 com\msbook\repository\ReviewRepository.class
+com\msbook\dto\ReviewDtoResponse.class
 com\msbook\service\serviceImpl\ImageService.class
 com\msbook\controller\BookController.class
 com\msbook\controller\UserController.class

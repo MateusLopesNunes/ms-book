@@ -2,6 +2,7 @@ package com.msbook.service.serviceImpl;
 
 import com.msbook.dto.CategoryDtoRequest;
 import com.msbook.dto.ReviewDtoRequest;
+import com.msbook.dto.ReviewDtoResponse;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Book;
 import com.msbook.model.Category;
@@ -31,12 +32,22 @@ public class ReviewService {
     @Autowired
     BookRepository bookRepository;
 
-    public Page<Review> getAll(Pageable page) {
-        return reviewRepository.findAll(page);
+    public Page<ReviewDtoResponse> getAll(Pageable page) {
+        Page<Review> reviews = reviewRepository.findAll(page);
+        return reviews.map(ReviewDtoResponse::reviewToDto);
     }
 
-    public Review getById(Long id) {
+    public ReviewDtoResponse getById(Long id) {
+        Review review = reviewRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Category not found"));
+        return ReviewDtoResponse.reviewToDto(review);
+    }
+
+    public Review getByIdIfExists(Long id) {
         return reviewRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Category not found"));
+    }
+
+    public List<Review> getReviewPerBook(Long bookId) {
+        return reviewRepository.findReviewPerBook(bookId);
     }
 
     public void create(ReviewDtoRequest reviewDto) {
@@ -46,7 +57,7 @@ public class ReviewService {
     public void update(ReviewDtoRequest reviewDto, Long id) {
         Review reviewModel = reviewDto.reviewDtoToBook(bookRepository, userRepository);
 
-        Review review = getById(id);
+        Review review = getByIdIfExists(id);
         review.setRating(reviewDto.rating());
         review.setReview(reviewDto.review());
         review.setBook(reviewModel.getBook());
@@ -56,7 +67,7 @@ public class ReviewService {
     }
 
     public void deleteById(Long id) {
-        getById(id);
+        getByIdIfExists(id);
         reviewRepository.deleteById(id);
     }
 }
