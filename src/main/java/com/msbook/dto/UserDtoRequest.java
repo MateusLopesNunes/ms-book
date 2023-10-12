@@ -9,9 +9,14 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-public record UserDtoRequest(@NotBlank String username, @NotBlank @Email String email, @NotBlank String password, String perfilImage, @NotNull LocalDate birthDate) {
+public record UserDtoRequest(@NotBlank String username, @NotBlank @Email String email, @NotBlank String password, @NotNull LocalDate birthDate) {
 
     public User bookDtoToBook() {
-        return new User(username, email, password, perfilImage, birthDate);
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setBirthDate(birthDate);
+        return user;
     }
 }

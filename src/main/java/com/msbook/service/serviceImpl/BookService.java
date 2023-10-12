@@ -3,6 +3,7 @@ package com.msbook.service.serviceImpl;
 import com.msbook.dto.BookDtoRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Book;
+import com.msbook.repository.AuthorRepository;
 import com.msbook.repository.BookRepository;
 import com.msbook.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class BookService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    AuthorRepository authorRepository;
 
     @Autowired
     private ImageService imageService;
@@ -48,12 +52,12 @@ public class BookService {
     }
 
     public void create(BookDtoRequest bookRequest) {
-        Book book = bookRequest.bookDtoToBook(categoryRepository);
+        Book book = bookRequest.bookDtoToBook(categoryRepository, authorRepository);
         bookRepository.save(book);
     }
 
     public void update(BookDtoRequest bookRequest, Long id) {
-        Book bookModel = bookRequest.bookDtoToBook(categoryRepository);
+        Book bookModel = bookRequest.bookDtoToBook(categoryRepository, authorRepository);
 
         Book book = getById(id);
         book.setTitle(bookModel.getTitle());

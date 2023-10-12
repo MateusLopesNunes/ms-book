@@ -1,6 +1,5 @@
 package com.msbook.repository;
 
-import com.msbook.dto.BookAuthorsDtoResponse;
 import com.msbook.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

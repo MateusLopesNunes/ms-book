@@ -78,7 +78,6 @@ public class UserService {
         user.setUsername(userDtoRequest.username());
         user.setEmail(userDtoRequest.email());
         user.setPassword(userDtoRequest.password());
-        user.setPerfilImage(userDtoRequest.perfilImage());
         user.setBirthDate(userDtoRequest.birthDate());
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);

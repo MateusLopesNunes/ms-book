@@ -20,7 +20,7 @@ public class User {
 
     private String email;
     private String password;
-    private String perfilImage;
+    private String perfilImage = "/user/files/imageDefault.png";
     private LocalDate birthDate;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
@@ -29,18 +29,9 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String perfilImage, LocalDate birthDate) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.perfilImage = perfilImage;
-        this.birthDate = birthDate;
-    }
-
     public User(String username, String email, String perfilImage, LocalDate birthDate) {
         this.username = username;
         this.email = email;
-        this.password = password;
         this.perfilImage = perfilImage;
         this.birthDate = birthDate;
     }

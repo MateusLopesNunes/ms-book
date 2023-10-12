@@ -18,9 +18,11 @@ public class Book {
     private LocalDateTime created_at = LocalDateTime.now();
     private LocalDateTime updated_at;
     private Long total_book_rating = 0L;
-    private String author;
     private String image;
     private StatusBook status = StatusBook.PENDING;
+
+    @ManyToOne
+    private Author author;
 
     @ManyToMany
     private Set<Category> categories = new HashSet<>();
@@ -28,7 +30,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String synopsis, String author, Set<Category> categories) {
+    public Book(String title, String synopsis, Author author, Set<Category> categories) {
         this.title = title;
         this.synopsis = synopsis;
         this.author = author;
@@ -85,11 +87,11 @@ public class Book {
         this.total_book_rating = total_book_rating;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
