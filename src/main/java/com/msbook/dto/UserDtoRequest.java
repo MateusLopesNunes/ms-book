@@ -1,8 +1,6 @@
 package com.msbook.dto;
 
-import com.msbook.model.Book;
 import com.msbook.model.User;
-import com.msbook.repository.CategoryRepository;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -54,7 +54,7 @@ public class UserController {
         userService.update(userRequest, id);
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity deleteById(@RequestParam String token, @PathVariable Long id, @RequestBody @Valid AuthDtoRequest authDtoRequest) {
         if (authService.autheticated(token, id)) {
             userService.deleteById(id, authDtoRequest);

@@ -4,11 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.antlr.v4.runtime.Token;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 @Entity
 public class User {
