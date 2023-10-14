@@ -38,12 +38,12 @@ public class ReviewService {
     }
 
     public ReviewDtoResponse getById(Long id) {
-        Review review = reviewRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Category not found"));
+        Review review = reviewRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Review not found"));
         return ReviewDtoResponse.reviewToDto(review);
     }
 
     public Review getByIdIfExists(Long id) {
-        return reviewRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Category not found"));
+        return reviewRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Review not found"));
     }
 
     public List<Review> getReviewPerBook(Long bookId) {

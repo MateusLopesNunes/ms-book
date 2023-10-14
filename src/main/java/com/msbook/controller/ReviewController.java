@@ -66,18 +66,18 @@ public class ReviewController {
 
     @PutMapping("/{reviewId}")
     @Transactional
-    public ResponseEntity update(@PathVariable Long bookId, @RequestBody @Valid ReviewDtoRequest reviewDto, @RequestParam String token, @RequestParam Long id) {
+    public ResponseEntity update(@PathVariable Long reviewId, @RequestBody @Valid ReviewDtoRequest reviewDto, @RequestParam String token, @RequestParam Long id) {
         if (authService.autheticated(token, id)) {
-            reviewService.update(reviewDto, id);
+            reviewService.update(reviewDto, reviewId);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @DeleteMapping("/{bookId}")
-    public ResponseEntity deleteById(@RequestParam String token, @RequestParam Long id, @PathVariable Long bookId) {
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity deleteById(@RequestParam String token, @RequestParam Long id, @PathVariable Long reviewId) {
         if (authService.autheticated(token, id)) {
-            reviewService.deleteById(id);
+            reviewService.deleteById(reviewId);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
