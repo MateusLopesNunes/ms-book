@@ -1,6 +1,7 @@
 package com.msbook.service.serviceImpl;
 
 import com.msbook.dto.BookDtoRequest;
+import com.msbook.dto.FiltersBookDtoRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Book;
 import com.msbook.repository.AuthorRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -33,10 +35,6 @@ public class BookService {
 
     public Page<Book> getAll(Pageable page) {
         return bookRepository.findAll(page);
-    }
-
-    public List<String> getAllAuthors() {
-        return bookRepository.findAllAuthors();
     }
 
     public Iterable<Book> getByTitle(String title) {
@@ -81,7 +79,11 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public List<Book> getFilter() {
-        return bookRepository.findByFilters();
+    public List<Book> getFilter(FiltersBookDtoRequest filters) {
+        List<Long> categoriesId = filters.categoriesId();
+        if (categoriesId == null) {
+            categoriesId = Arrays.asList();
+        }
+        return bookRepository.findByTitleOrAuthorIdOrCategoriesIdInAndTotalBookRatingGreaterThanEqual(filters.title(), filters.authorId(), categoriesId, filters.rating());
     }
 }

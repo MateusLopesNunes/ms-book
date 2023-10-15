@@ -1,0 +1,9 @@
+SELECT DISTINCT b FROM Book b 
+JOIN b.categories c JOIN b.authors a 
+WHERE
+    (b.title LIKE '%title%' OR
+    a.author = 1)
+    AND
+    c.id IN (1, 2)
+    AND
+    b.total_book_rating >= 5;

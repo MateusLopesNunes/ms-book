@@ -1,6 +1,7 @@
 package com.msbook.controller;
 
 import com.msbook.dto.BookDtoRequest;
+import com.msbook.dto.FiltersBookDtoRequest;
 import com.msbook.model.Book;
 import com.msbook.service.serviceImpl.AuthService;
 import com.msbook.service.serviceImpl.BookService;
@@ -37,14 +38,6 @@ public class BookController {
     ResponseEntity<Page<Book>> getAll(@RequestParam String token, @RequestParam Long id, Pageable page) {
         if (authService.autheticated(token, id)) {
             return ResponseEntity.ok(bookService.getAll(page));
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-
-    @GetMapping("/authors")
-    ResponseEntity<List<String>> getAllAuthors(@RequestParam String token, @RequestParam Long id) {
-        if (authService.autheticated(token, id)) {
-            return ResponseEntity.ok(bookService.getAllAuthors());
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
@@ -105,8 +98,8 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/filters")
-    List<Book> getAll() {
-        return bookService.getFilter();
+    @PostMapping("/filters")
+    List<Book> getByFilters(@RequestBody FiltersBookDtoRequest filters) {
+        return bookService.getFilter(filters);
     }
 }

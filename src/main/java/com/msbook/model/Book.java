@@ -17,7 +17,7 @@ public class Book {
     private String synopsis;
     private LocalDateTime created_at = LocalDateTime.now();
     private LocalDateTime updated_at;
-    private Float total_book_rating = 0.0f;
+    private Float totalBookRating = 0.0f;
     private String image = "/user/files/imageDefault.png";;
     private StatusBook status = StatusBook.PENDING;
 
@@ -79,12 +79,12 @@ public class Book {
         this.updated_at = updated_at;
     }
 
-    public Float getTotal_book_rating() {
-        return total_book_rating;
+    public Float getTotalBookRating() {
+        return totalBookRating;
     }
 
-    public void setTotal_book_rating(Float total_book_rating) {
-        this.total_book_rating = total_book_rating;
+    public void setTotalBookRating(Float totalBookRating) {
+        this.totalBookRating = totalBookRating;
     }
 
     public Author getAuthor() {
