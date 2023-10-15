@@ -15,7 +15,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "select * from book join book_categories on book.id = book_categories.book_id where book_categories.categories_id = :categoryId", nativeQuery = true)
     Iterable<Book> findBookPerCategory(@Param("categoryId") Long categoryId);
 
-    List<Book> findByTitleOrAuthorIdOrCategoriesIdInAndTotalBookRatingGreaterThanEqual(
+    @Query(value = "SELECT rating FROM Review WHERE book.id = :id")
+    List<Float> findByRatingPerBook(@Param("id") Long id);
+
+    List<Book> findByTitleContainingOrAuthorIdOrCategoriesIdInAndTotalBookRatingGreaterThanEqual(
             String title, Long authorId, List<Long> categoriesId, Float totalBookRating);
 
 //    @Query("SELECT DISTINCT b FROM Book b \n" +

@@ -84,6 +84,6 @@ public class BookService {
         if (categoriesId == null) {
             categoriesId = Arrays.asList();
         }
-        return bookRepository.findByTitleOrAuthorIdOrCategoriesIdInAndTotalBookRatingGreaterThanEqual(filters.title(), filters.authorId(), categoriesId, filters.rating());
+        return bookRepository.findByTitleContainingOrAuthorIdOrCategoriesIdInAndTotalBookRatingGreaterThanEqual(filters.title(), filters.authorId(), categoriesId, filters.rating());
     }
 }
