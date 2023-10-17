@@ -87,12 +87,9 @@ public class UserController {
     }
 
     @PostMapping("/logout/{id}")
-    public ResponseEntity logout(@PathVariable Long id, @RequestParam String token) {
-        if (authService.autheticated(token, id)) {
-            authService.resetToken(id);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity logout(@PathVariable Long id) {
+        authService.resetToken(id);
+        return ResponseEntity.ok().build();
     }
 }
 
