@@ -6,5 +6,5 @@ public interface Subject{
 
     public void unsubscribe(Observer observer);
 
-    public void notifyObservers();
+    public void notifyObservers(Long id);
 }

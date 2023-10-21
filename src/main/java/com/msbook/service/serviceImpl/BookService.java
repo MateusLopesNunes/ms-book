@@ -4,6 +4,7 @@ import com.msbook.dto.BookDtoRequest;
 import com.msbook.dto.FiltersBookDtoRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Book;
+import com.msbook.patternObserver.interfaces.Observer;
 import com.msbook.repository.AuthorRepository;
 import com.msbook.repository.BookRepository;
 import com.msbook.repository.CategoryRepository;
@@ -16,9 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class BookService {
+public class BookService implements Observer {
 
     @Autowired
     BookRepository bookRepository;
@@ -85,5 +87,23 @@ public class BookService {
             categoriesId = Arrays.asList();
         }
         return bookRepository.findByTitleContainingOrAuthorIdOrCategoriesIdInAndTotalBookRatingGreaterThanEqual(filters.title(), filters.authorId(), categoriesId, filters.rating());
+    }
+
+    public void updateRating(Long id) {
+        System.out.println("Updating rating... " + id);
+        List<Float> ratings = bookRepository.findByRatingPerBook(id);
+        Float average = ratings.stream().reduce((a, b) -> a + b).map(sum -> sum / ratings.size()).orElseThrow(() -> new ObjectNotFoundException("Erro inesperado na média"));
+        System.out.println("Average rating: " + average);
+
+        Book book = getById(id);
+        book.setTotalBookRating(average);
+        bookRepository.save(book);
+    }
+
+    // Observer pattern
+
+    @Override
+    public void update(Long id) {
+        updateRating(id);
     }
 }

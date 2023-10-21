@@ -7,6 +7,8 @@ import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Book;
 import com.msbook.model.Category;
 import com.msbook.model.Review;
+import com.msbook.patternObserver.interfaces.Observer;
+import com.msbook.patternObserver.interfaces.Subject;
 import com.msbook.repository.BookRepository;
 import com.msbook.repository.CategoryRepository;
 import com.msbook.repository.ReviewRepository;
@@ -18,10 +20,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ReviewService {
+public class ReviewService implements Subject {
 
     @Autowired
     ReviewRepository reviewRepository;
@@ -31,6 +34,16 @@ public class ReviewService {
 
     @Autowired
     BookRepository bookRepository;
+
+    BookService bookService;
+
+    private List<Observer> observers = new ArrayList<>();
+
+    @Autowired
+    public ReviewService(BookService bookService) {
+        this.bookService = bookService;
+        subscribe(bookService);
+    }
 
     public Page<ReviewDtoResponse> getAll(Pageable page) {
         Page<Review> reviews = reviewRepository.findAll(page);
@@ -51,8 +64,8 @@ public class ReviewService {
     }
 
     public void create(ReviewDtoRequest reviewDto) {
-        reviewRepository.save(reviewDto.reviewDtoToBook(bookRepository, userRepository));
-
+        Review review = reviewRepository.save(reviewDto.reviewDtoToBook(bookRepository, userRepository));
+        notifyObservers(review.getBook().getId());
     }
 
     public void update(ReviewDtoRequest reviewDto, Long id) {
@@ -70,5 +83,23 @@ public class ReviewService {
     public void deleteById(Long id) {
         getByIdIfExists(id);
         reviewRepository.deleteById(id);
+    }
+
+    // Observer pattern
+
+    @Override
+    public void subscribe(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void unsubscribe(Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(Long id) {
+        System.out.println(observers.get(0));
+        observers.forEach(observer -> observer.update(id));
     }
 }

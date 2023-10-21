@@ -4,7 +4,5 @@ import com.msbook.model.Review;
 
 public interface Observer {
 
-    public void update(Review review);
+    public void update(Long id);
 }
-
-
