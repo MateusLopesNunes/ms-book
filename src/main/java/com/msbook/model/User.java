@@ -55,8 +55,7 @@ public class User {
     }
 
     public String getName() {
-        // TODO Auto-generated method stub
-        return this.email;
+        return this.username;
     }
 
     public void setPassword(String password) {

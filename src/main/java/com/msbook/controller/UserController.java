@@ -50,11 +50,11 @@ public class UserController {
 
     @PutMapping("/{id}")
     @Transactional
-    public void update(@RequestBody @Valid UserDtoRequest userRequest, @PathVariable Long id) {
+    public void update(@RequestBody @Valid UserDtoUpdateRequest userRequest, @PathVariable Long id) {
         userService.update(userRequest, id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity deleteById(@RequestParam String token, @PathVariable Long id, @RequestBody @Valid AuthDtoRequest authDtoRequest) {
         if (authService.autheticated(token, id)) {
             userService.deleteById(id, authDtoRequest);

@@ -67,7 +67,7 @@ public class UserService {
         return UserDtoResponse.userToUserDto(user);
     }
 
-    public void update(UserDtoRequest userDtoRequest, Long id) {
+    public void update(UserDtoUpdateRequest userDtoRequest, Long id) {
         User user = getByIdIfExists(id);
 
         Optional<User> userByEmail = userRepository.findByEmail(userDtoRequest.email());
@@ -77,7 +77,6 @@ public class UserService {
 
         user.setUsername(userDtoRequest.username());
         user.setEmail(userDtoRequest.email());
-        user.setPassword(userDtoRequest.password());
         user.setBirthDate(userDtoRequest.birthDate());
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
