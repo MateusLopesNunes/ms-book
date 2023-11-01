@@ -1,10 +1,9 @@
 package com.msbook.controller;
 
 import com.msbook.dto.*;
-import com.msbook.model.User;
-import com.msbook.service.serviceImpl.AuthService;
-import com.msbook.service.serviceImpl.ImageService;
-import com.msbook.service.serviceImpl.UserService;
+import com.msbook.service.serviceImpl.AuthServiceImpl;
+import com.msbook.service.serviceImpl.ImageServiceImpl;
+import com.msbook.service.serviceImpl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -23,13 +22,13 @@ import java.io.IOException;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @Autowired
-    AuthService authService;
+    AuthServiceImpl authService;
 
     @Autowired
-    private ImageService imageService;
+    private ImageServiceImpl imageService;
 
     @GetMapping
     public Iterable<UserDtoResponse> getAll() {

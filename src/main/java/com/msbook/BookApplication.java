@@ -1,18 +1,17 @@
 package com.msbook;
 
-import com.msbook.service.serviceImpl.ImageService;
+import com.msbook.service.serviceImpl.ImageServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication(exclude={SecurityAutoConfiguration.class})
 public class BookApplication implements CommandLineRunner {
 
 	@Resource
-	private ImageService imageService;
+	private ImageServiceImpl imageService;
 
 
 	public static void main(String[] args) {

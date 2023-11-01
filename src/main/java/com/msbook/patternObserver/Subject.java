@@ -1,4 +1,4 @@
-package com.msbook.patternObserver.interfaces;
+package com.msbook.patternObserver;
 
 public interface Subject{
 

@@ -2,7 +2,7 @@ package com.msbook.controller;
 
 import com.msbook.dto.CategoryDtoRequest;
 import com.msbook.model.Category;
-import com.msbook.service.serviceImpl.CategoryService;
+import com.msbook.service.serviceImpl.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     @Autowired
-    CategoryService categoryService;
+    CategoryServiceImpl categoryService;
 
     @GetMapping
     public Iterable<Category> getAll() {

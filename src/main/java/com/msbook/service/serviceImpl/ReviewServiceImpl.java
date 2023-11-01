@@ -1,19 +1,16 @@
 package com.msbook.service.serviceImpl;
 
-import com.msbook.dto.CategoryDtoRequest;
 import com.msbook.dto.ReviewDtoRequest;
 import com.msbook.dto.ReviewDtoResponse;
 import com.msbook.dto.exception.ObjectNotFoundException;
-import com.msbook.model.Book;
-import com.msbook.model.Category;
 import com.msbook.model.Review;
-import com.msbook.patternObserver.interfaces.Observer;
-import com.msbook.patternObserver.interfaces.Subject;
+import com.msbook.patternObserver.Observer;
+import com.msbook.patternObserver.Subject;
 import com.msbook.repository.BookRepository;
-import com.msbook.repository.CategoryRepository;
 import com.msbook.repository.ReviewRepository;
 
 import com.msbook.repository.UserRepository;
+import com.msbook.service.serviceInterface.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ReviewService implements Subject {
+public class ReviewServiceImpl implements ReviewService, Subject {
 
     @Autowired
     ReviewRepository reviewRepository;
@@ -35,12 +32,12 @@ public class ReviewService implements Subject {
     @Autowired
     BookRepository bookRepository;
 
-    BookService bookService;
+    BookServiceImpl bookService;
 
     private List<Observer> observers = new ArrayList<>();
 
     @Autowired
-    public ReviewService(BookService bookService) {
+    public ReviewServiceImpl(BookServiceImpl bookService) {
         this.bookService = bookService;
         subscribe(bookService);
     }

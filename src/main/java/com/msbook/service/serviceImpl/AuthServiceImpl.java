@@ -5,6 +5,8 @@ import com.msbook.dto.TokenResponse;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.User;
 import com.msbook.repository.UserRepository;
+import com.msbook.service.serviceInterface.AuthService;
+import com.msbook.service.serviceInterface.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AuthService {
+public class AuthServiceImpl implements AuthService {
 
     @Autowired
     UserRepository userRepository;

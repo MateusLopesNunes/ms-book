@@ -4,13 +4,14 @@ import com.msbook.dto.CategoryDtoRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Category;
 import com.msbook.repository.CategoryRepository;
+import com.msbook.service.serviceInterface.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     CategoryRepository categoryRepository;

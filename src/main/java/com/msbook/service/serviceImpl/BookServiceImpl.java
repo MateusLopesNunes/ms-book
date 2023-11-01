@@ -4,10 +4,11 @@ import com.msbook.dto.BookDtoRequest;
 import com.msbook.dto.FiltersBookDtoRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Book;
-import com.msbook.patternObserver.interfaces.Observer;
+import com.msbook.patternObserver.Observer;
 import com.msbook.repository.AuthorRepository;
 import com.msbook.repository.BookRepository;
 import com.msbook.repository.CategoryRepository;
+import com.msbook.service.serviceInterface.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class BookService implements Observer {
+public class BookServiceImpl implements BookService, Observer {
 
     @Autowired
     BookRepository bookRepository;
@@ -32,7 +32,7 @@ public class BookService implements Observer {
     AuthorRepository authorRepository;
 
     @Autowired
-    private ImageService imageService;
+    private ImageServiceImpl imageService;
 
 
     public Page<Book> getAll(Pageable page) {

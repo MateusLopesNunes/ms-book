@@ -1,6 +1,7 @@
 package com.msbook.service.serviceImpl;
 
 import com.msbook.dto.exception.ObjectNotFoundException;
+import com.msbook.service.serviceInterface.ImageService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ImageService {
+public class ImageServiceImpl implements ImageService {
 
     private final Path root = Paths.get("src/main/resources/uploads");
 

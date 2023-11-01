@@ -4,13 +4,13 @@ import com.msbook.dto.*;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.User;
 import com.msbook.repository.UserRepository;
+import com.msbook.service.serviceInterface.UserService;
 import com.msbook.util.PasswordUtils;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,10 +19,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
@@ -31,11 +30,11 @@ public class UserService {
     private JavaMailSender mailSender;
 
     @Autowired
-    private ImageService imageService;
+    private ImageServiceImpl imageService;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    private UserService() {
+    private UserServiceImpl() {
     }
 
     public List<UserDtoResponse> getAll() {

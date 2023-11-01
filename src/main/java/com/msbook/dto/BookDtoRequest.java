@@ -6,6 +6,7 @@ import com.msbook.model.Category;
 import com.msbook.repository.AuthorRepository;
 import com.msbook.repository.BookRepository;
 import com.msbook.repository.CategoryRepository;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record BookDtoRequest(@NotBlank String title, @NotBlank String synopsis, @NotNull Long authorId, @NotNull Set<Long> categoriesId) {
+public record BookDtoRequest(@NotBlank String title, @NotBlank @Max(1000) String synopsis, @NotNull Long authorId, @NotNull Set<Long> categoriesId) {
 
     public Book bookDtoToBook(CategoryRepository categoryRepository, AuthorRepository authorRepository) {
         Author author = authorRepository.findById(authorId).orElseThrow(() -> new RuntimeException("Book not found"));

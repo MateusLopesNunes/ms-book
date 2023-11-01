@@ -3,9 +3,9 @@ package com.msbook.controller;
 import com.msbook.dto.BookDtoRequest;
 import com.msbook.dto.FiltersBookDtoRequest;
 import com.msbook.model.Book;
-import com.msbook.service.serviceImpl.AuthService;
-import com.msbook.service.serviceImpl.BookService;
-import com.msbook.service.serviceImpl.ImageService;
+import com.msbook.service.serviceImpl.AuthServiceImpl;
+import com.msbook.service.serviceImpl.BookServiceImpl;
+import com.msbook.service.serviceImpl.ImageServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -26,13 +26,13 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    BookService bookService;
+    BookServiceImpl bookService;
 
     @Autowired
-    AuthService authService;
+    AuthServiceImpl authService;
 
     @Autowired
-    private ImageService imageService;
+    private ImageServiceImpl imageService;
 
     @GetMapping("/")
     ResponseEntity<Page<Book>> getAll(@RequestParam String token, @RequestParam Long id, Pageable page) {

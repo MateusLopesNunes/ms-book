@@ -1,18 +1,17 @@
 package com.msbook.service.serviceImpl;
 
 import com.msbook.dto.AuthorDtoRequest;
-import com.msbook.dto.CategoryDtoRequest;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import com.msbook.model.Author;
-import com.msbook.model.Category;
 import com.msbook.repository.AuthorRepository;
+import com.msbook.service.serviceInterface.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AuthorService {
+public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
     AuthorRepository authorRepository;

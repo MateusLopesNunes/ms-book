@@ -11,6 +11,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Float rating;
+
+    @Column(length = 2000)
     private String review;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;

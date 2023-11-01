@@ -1,4 +1,4 @@
-package com.msbook.patternObserver.interfaces;
+package com.msbook.patternObserver;
 
 import com.msbook.model.Review;
 

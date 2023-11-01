@@ -1,11 +1,9 @@
 package com.msbook.controller;
 
 import com.msbook.dto.AuthorDtoRequest;
-import com.msbook.dto.CategoryDtoRequest;
 import com.msbook.model.Author;
-import com.msbook.model.Category;
-import com.msbook.service.serviceImpl.AuthService;
-import com.msbook.service.serviceImpl.AuthorService;
+import com.msbook.service.serviceImpl.AuthServiceImpl;
+import com.msbook.service.serviceImpl.AuthorServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class AuthorController {
 
     @Autowired
-    AuthorService authorService;
+    AuthorServiceImpl authorService;
 
     @Autowired
-    AuthService authService;
+    AuthServiceImpl authService;
 
     @GetMapping
     public ResponseEntity<Iterable<Author>> getAll(@RequestParam String token, @RequestParam Long id) {
