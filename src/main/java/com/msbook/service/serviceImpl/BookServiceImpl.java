@@ -53,6 +53,7 @@ public class BookServiceImpl implements BookService, Observer {
 
     public void create(BookDtoRequest bookRequest) {
         Book book = bookRequest.bookDtoToBook(categoryRepository, authorRepository);
+
         bookRepository.save(book);
     }
 

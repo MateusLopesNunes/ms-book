@@ -12,11 +12,16 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record ReviewDtoRequest(@NotNull Float rating, @NotBlank @Max(2000) String review, @NotNull Long bookId, @NotNull Long userId) {
+public record ReviewDtoRequest(@NotNull Float rating, @NotBlank String review, @NotNull Long bookId, @NotNull Long userId) {
 
     public Review reviewDtoToBook(BookRepository bookRepository, UserRepository userRepository) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new ObjectNotFoundException("Book not found"));
         User user = userRepository.findById(userId).orElseThrow(() -> new ObjectNotFoundException("User not found"));
+
+        if (review.length() >= 2000) {
+            throw new ObjectNotFoundException("Review deve ser menor que ou igual à 2000");
+        }
+
         return new Review(rating, review, book, user);
     }
 }
