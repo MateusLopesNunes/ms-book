@@ -1,5 +1,6 @@
 package com.msbook.controller.errorHandler;
 
+import com.msbook.dto.exception.InvalidCredentials;
 import com.msbook.dto.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -15,6 +16,12 @@ public class ErrorHandlerController {
     private ResponseEntity<ProblemDetail> exceptionObjectNotFound(ObjectNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidCredentials.class)
+    private ResponseEntity<ProblemDetail> exceptionObjectNotFound(InvalidCredentials exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, exception.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

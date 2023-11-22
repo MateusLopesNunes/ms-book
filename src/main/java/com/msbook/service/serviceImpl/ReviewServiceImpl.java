@@ -78,8 +78,9 @@ public class ReviewServiceImpl implements ReviewService, Subject {
     }
 
     public void deleteById(Long id) {
-        getByIdIfExists(id);
+        Review review = getByIdIfExists(id);
         reviewRepository.deleteById(id);
+        notifyObservers(review.getBook().getId());
     }
 
     // Observer pattern

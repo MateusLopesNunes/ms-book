@@ -29,6 +29,9 @@ public class Book {
     @ManyToMany
     private Set<Category> categories = new HashSet<>();
 
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Review> reviews = new HashSet<>();
+
     public Book() {
     }
 
@@ -119,5 +122,9 @@ public class Book {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
     }
 }
